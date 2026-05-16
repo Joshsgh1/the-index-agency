@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     :root{--navy:#0a0f1e;--navy-mid:#111827;--gold:#c9a84c;--gold-light:#e8c97a;--cream:#f5f0e8;--cream-dark:#ede8dc;--white:#ffffff;--muted:#8a8a8a;--border:rgba(201,168,76,0.2)}
@@ -31,7 +33,6 @@
     .hero-images{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;z-index:0}
     .hero-img-panel{position:relative;overflow:hidden;background-color:#111827}
     .hero-img-panel::after{content:'';position:absolute;inset:0;background:rgba(10,15,30,0.72);z-index:1}
-    /* Ken Burns inner layer */
     .kb{position:absolute;inset:-8%;background-size:cover;background-position:center;will-change:transform}
     #kb-london{animation:kb1 20s ease-in-out infinite alternate}
     #kb-newyork{animation:kb2 24s ease-in-out infinite alternate}
@@ -99,27 +100,20 @@
     .svc-cta{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;gap:0.4rem;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;cursor:pointer}
 
     /* ── SERVICES — premium scroll entrance ── */
-    /* Eyebrow clip-mask reveal */
     .svc-line-wrap{overflow:hidden;display:block}
     .svc-line-inner{display:block;transform:translateY(115%);transition:transform 0.85s cubic-bezier(0.16,1,0.3,1)}
     .svc-triggered .svc-line-inner{transform:translateY(0)}
-    /* Title word-by-word clip reveal */
     .svc-word-wrap{display:inline-block;overflow:hidden;vertical-align:bottom;line-height:1.35}
     .svc-word-inner{display:inline-block;transform:translateY(115%);transition:transform 0.82s cubic-bezier(0.16,1,0.3,1)}
     .svc-triggered .svc-word-inner{transform:translateY(0)}
-    /* Growing gold accent line */
     .svc-gold-bar{height:1px;background:linear-gradient(90deg,var(--gold),rgba(232,201,122,0));width:0;margin:1.2rem 0 2.8rem;transition:width 1.5s cubic-bezier(0.16,1,0.3,1) 0.1s}
     .svc-triggered .svc-gold-bar{width:90px}
-    /* Intro paragraph fade-up */
     .services-intro{opacity:0;transform:translateY(20px);transition:opacity 0.9s ease 0.45s,transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s}
     .svc-triggered .services-intro{opacity:1;transform:none}
-    /* Card initial hidden state (overrides .reveal) */
     .service-card{opacity:0;transform:translateY(48px)}
     .service-card.svc-in{opacity:1;transform:none;transition:opacity 0.75s ease,transform 0.95s cubic-bezier(0.16,1,0.3,1),background 0.3s}
-    /* Number stamp-in when card enters */
     @keyframes svcNumPop{0%{opacity:0;transform:scale(0.65) translateY(10px)}65%{opacity:1;transform:scale(1.06) translateY(-3px)}100%{opacity:1;transform:scale(1) translateY(0)}}
     .svc-in .svc-num{animation:svcNumPop 0.75s cubic-bezier(0.34,1.56,0.64,1) forwards}
-    /* Gold left-border sweep on hover (more premium than bottom bar alone) */
     .service-card::after{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--gold);transition:height 0.45s cubic-bezier(0.16,1,0.3,1)}
     .service-card:hover::after{height:100%}
 
@@ -153,11 +147,23 @@
     .pkg-enquire:hover{background:var(--gold);border-color:var(--gold);color:var(--navy);transform:translateY(-1px)}
     .pkg-card.featured .pkg-enquire{background:var(--navy);border-color:var(--navy);color:var(--white)}
     .pkg-card.featured .pkg-enquire:hover{background:#060b14}
-    /* Package card entrance */
     .pkg-card{opacity:0;transform:translateY(42px)}
-    .pkg-card.pkg-in{opacity:1;transform:none;transition:opacity 0.75s ease,transform 0.95s cubic-bezier(0.16,1,0.3,1),background 0.4s}
+    .pkg-card.pkg-in{opacity:1;transform:none;transition:opacity 0.75s ease,transform 0.95s cubic-bezier(0.16,1,0.3,1),background 0.4s,box-shadow 0.4s,border-color 0.4s}
 
-    /* ── HERO TEXT ENTRANCE (on load) ── */
+    /* ── PACKAGE CARD HOVER ANIMATIONS ── */
+    .pkg-card.pkg-in{position:relative;overflow:hidden}
+    .pkg-card.pkg-in::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.06),transparent);transition:left 0.6s ease;pointer-events:none}
+    .pkg-card.pkg-in:hover::before{left:100%}
+    .pkg-card.pkg-in:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,0.4);border-top:1px solid rgba(201,168,76,0.5);background:rgba(255,255,255,0.06)}
+    .pkg-card.pkg-in:hover .pkg-title{color:var(--gold-light)}
+    .pkg-card.pkg-in:hover .pkg-divider{width:60px;background:var(--gold)}
+    .pkg-divider{transition:width 0.4s cubic-bezier(0.16,1,0.3,1),background 0.4s}
+    .pkg-card.pkg-in:hover .pkg-tag{color:rgba(255,255,255,0.6)}
+    /* Featured card hover — slightly different treatment */
+    .pkg-card.featured.pkg-in:hover{transform:translateY(-8px);box-shadow:0 24px 64px rgba(201,168,76,0.3);background:var(--gold-light)}
+    .pkg-card.featured.pkg-in:hover .pkg-title{color:var(--navy)}
+
+    /* ── HERO TEXT ENTRANCE ── */
     @keyframes heroFadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
     .hero-eyebrow{animation:heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s both}
     .hero-h1{animation:heroFadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.5s both}
@@ -167,7 +173,6 @@
     /* ── PROCESS STEP ENTRANCE ── */
     .process-step{opacity:0;transform:translateY(36px)}
     .process-step.step-in{opacity:1;transform:none;transition:opacity 0.7s ease,transform 0.85s cubic-bezier(0.16,1,0.3,1),background 0.25s}
-    /* Connecting line animates across */
     .process-steps{position:relative}
     .process-steps::before{content:'';position:absolute;top:3.2rem;left:2rem;right:2rem;height:0.5px;background:var(--cream-dark);z-index:0;transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s}
     .process-triggered .process-steps::before{transform:scaleX(1)}
@@ -216,9 +221,7 @@
     .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease}
     .reveal.visible{opacity:1;transform:none}
 
-    /* ──────────────────────────────────────────
-       MODAL
-    ────────────────────────────────────────── */
+    /* ── MODAL ── */
     .modal-overlay{position:fixed;inset:0;background:rgba(10,15,30,0.82);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:1rem}
     .modal-overlay.open{opacity:1;pointer-events:all}
     .modal{background:var(--white);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(24px);transition:transform 0.3s}
@@ -258,7 +261,6 @@
     .pkg-opt:hover{border-color:var(--gold)}
     .pkg-opt.selected{border-color:var(--gold);background:rgba(201,168,76,0.08)}
     .pkg-name{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--navy);margin-bottom:0.3rem;font-weight:500}
-    .pkg-price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold)}
     .pkg-check{width:18px;height:18px;border-radius:50%;border:1.5px solid #d8d4cc;display:flex;align-items:center;justify-content:center;margin:0.5rem auto 0;font-size:0.65rem;transition:all 0.2s}
     .pkg-opt.selected .pkg-check{background:var(--gold);border-color:var(--gold);color:var(--navy)}
 
@@ -286,6 +288,10 @@
     .success-detail-row:last-child{border-bottom:none}
     .success-detail-row span:first-child{color:var(--muted)}
     .success-detail-row span:last-child{color:var(--navy);font-weight:500}
+    .btn-calendly{display:block;width:100%;background:var(--gold);color:var(--navy);padding:1rem 2rem;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all 0.2s;margin-bottom:0.75rem;text-align:center}
+    .btn-calendly:hover{background:var(--gold-light);transform:translateY(-1px)}
+    .btn-dismiss{background:none;border:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto;padding:0.3rem;transition:color 0.2s}
+    .btn-dismiss:hover{color:var(--navy)}
 
     /* ── RESPONSIVE ── */
     @media(max-width:900px){
@@ -527,9 +533,7 @@
   <div class="footer-copy">© 2025 The Index Agency. London, UK.</div>
 </footer>
 
-<!-- ──────────────────────────────────────────
-     BOOKING MODAL
-────────────────────────────────────────── -->
+<!-- ── BOOKING MODAL ── -->
 <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
   <div class="modal" id="modal">
 
@@ -660,17 +664,17 @@
           <div class="pkg-grid" id="pkg-grid">
             <div class="pkg-opt" id="pkg-Starter" onclick="selectPackage('Starter')">
               <div class="pkg-name">Starter</div>
-              <div class="pkg-price">£1,500<span style="font-size:0.7rem;color:#999">/mo</span></div>
+              <div style="font-size:0.72rem;color:#999;margin-bottom:0.3rem">LinkedIn writing</div>
               <div class="pkg-check"></div>
             </div>
             <div class="pkg-opt" id="pkg-Growth" onclick="selectPackage('Growth')">
               <div class="pkg-name">Growth</div>
-              <div class="pkg-price">£3,500<span style="font-size:0.7rem;color:#999">/mo</span></div>
+              <div style="font-size:0.72rem;color:#999;margin-bottom:0.3rem">Writing + video</div>
               <div class="pkg-check"></div>
             </div>
             <div class="pkg-opt" id="pkg-Full Partnership" onclick="selectPackage('Full Partnership')">
-              <div class="pkg-name">Full Partnership</div>
-              <div class="pkg-price">£6,500<span style="font-size:0.7rem;color:#999">/mo</span></div>
+              <div class="pkg-name">Partnership</div>
+              <div style="font-size:0.72rem;color:#999;margin-bottom:0.3rem">Full service</div>
               <div class="pkg-check"></div>
             </div>
           </div>
@@ -700,10 +704,13 @@
       <div class="form-step" id="step-success">
         <div class="success-screen">
           <div class="success-icon"><i class="ti ti-check"></i></div>
-          <h3 class="success-title">We'll be in touch shortly</h3>
-          <p class="success-body">Thank you for reaching out. We review every enquiry personally and will email you within one business day to confirm your discovery call.</p>
+          <h3 class="success-title">Enquiry sent</h3>
+          <p class="success-body">Your details are on their way to us. Book your discovery call below to lock in your slot — it takes 30 seconds.</p>
           <div class="success-detail" id="success-summary"></div>
-          <button class="btn-next" style="display:block;margin:0 auto" onclick="closeModal()">Close</button>
+          <button class="btn-calendly" onclick="Calendly.initPopupWidget({url:'https://calendly.com/josh-theindexagency/30min'});return false;">
+            <i class="ti ti-calendar" style="margin-right:0.4rem"></i> Book your discovery call
+          </button>
+          <button class="btn-dismiss" onclick="closeModal()">I'll do this later</button>
         </div>
       </div>
 
@@ -718,7 +725,7 @@
 </div>
 
 <script>
-  /* ── City images — load onto .kb inner elements for Ken Burns ── */
+  /* ── City images ── */
   var cityImages = [
     { id: 'kb-london',    url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=2400&q=90' },
     { id: 'kb-newyork',   url: 'https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?w=2400&q=90' },
@@ -732,7 +739,7 @@
     img.src = city.url;
   });
 
-  /* ── Nav: shadow + active links ── */
+  /* ── Nav ── */
   var mainNav = document.getElementById('main-nav');
   window.addEventListener('scroll', function() {
     mainNav.classList.toggle('scrolled', window.scrollY > 20);
@@ -745,7 +752,7 @@
     });
   });
 
-  /* ── Scroll-reveal (generic) ── */
+  /* ── Scroll-reveal ── */
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
@@ -753,55 +760,41 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
 
-  /* ── Services section — premium entrance ── */
+  /* ── Services premium entrance ── */
   (function() {
     var sec = document.getElementById('services');
     if (!sec) return;
-
-    /* 1. Eyebrow: clip-mask reveal */
     var eyebrow = sec.querySelector('.section-eyebrow');
     eyebrow.classList.remove('reveal');
     eyebrow.innerHTML = '<span class="svc-line-wrap"><span class="svc-line-inner">' + eyebrow.textContent + '</span></span>';
-
-    /* 2. Title: split into words, each in its own clip container */
     var title = sec.querySelector('.section-title');
     title.classList.remove('reveal');
-    /* Split text nodes only, leaving HTML tags (like <em>) intact */
     title.innerHTML = title.innerHTML.split(/(<[^>]*>)/).map(function(chunk) {
-      if (chunk.charAt(0) === '<') return chunk; /* HTML tag — leave alone */
+      if (chunk.charAt(0) === '<') return chunk;
       return chunk.replace(/(\S+)/g, '<span class="svc-word-wrap"><span class="svc-word-inner">$1</span></span>');
     }).join('');
-    /* Stagger delays per word */
     title.querySelectorAll('.svc-word-inner').forEach(function(w, i) {
       w.style.transitionDelay = (0.05 * i) + 's';
     });
-
-    /* 3. Insert growing gold bar after the title */
     var bar = document.createElement('div');
     bar.className = 'svc-gold-bar';
     title.insertAdjacentElement('afterend', bar);
-
-    /* 4. Remove .reveal from intro + cards (the premium observer owns them now) */
     var intro = sec.querySelector('.services-intro');
     if (intro) intro.classList.remove('reveal');
     var cards = sec.querySelectorAll('.service-card');
     cards.forEach(function(c) { c.classList.remove('reveal'); });
-
-    /* 5. Single IntersectionObserver fires once when section scrolls in */
     var done = false;
     new IntersectionObserver(function(entries) {
       if (!entries[0].isIntersecting || done) return;
       done = true;
-      /* Trigger eyebrow + title + gold bar together */
       sec.classList.add('svc-triggered');
-      /* Stagger cards: 0 → 160ms → 320ms after the title has started */
       cards.forEach(function(card, i) {
         setTimeout(function() { card.classList.add('svc-in'); }, 480 + i * 175);
       });
     }, { threshold: 0.12 }).observe(sec);
   })();
 
-  /* ── Packages section stagger ── */
+  /* ── Packages stagger ── */
   (function() {
     var sec = document.getElementById('packages');
     if (!sec) return;
@@ -816,7 +809,7 @@
     }, { threshold: 0.1 }).observe(sec);
   })();
 
-  /* ── Process steps sequential entrance ── */
+  /* ── Process steps ── */
   (function() {
     var sec = document.getElementById('process');
     if (!sec) return;
@@ -832,7 +825,7 @@
     }, { threshold: 0.1 }).observe(sec);
   })();
 
-  /* ── Compliance items slide in from left ── */
+  /* ── Compliance items ── */
   (function() {
     var items = document.querySelectorAll('.comp-item');
     var done = false;
@@ -846,9 +839,7 @@
     }, { threshold: 0.1 }).observe(items[0].closest('section'));
   })();
 
-  /* ──────────────────────────────────────────
-     MODAL
-  ────────────────────────────────────────── */
+  /* ── MODAL ── */
   var currentStep = 0;
   var totalSteps = 4;
   var selectedPackage = '';
@@ -856,7 +847,6 @@
   function openModal(pkg) {
     currentStep = 0;
     selectedPackage = '';
-    // clear all package selections
     document.querySelectorAll('.pkg-opt').forEach(function(el) { el.classList.remove('selected'); el.querySelector('.pkg-check').textContent = ''; });
     if (pkg) selectPackage(pkg);
     renderStep();
@@ -879,11 +869,9 @@
 
   function renderStep() {
     var isSuccess = currentStep === totalSteps;
-
     document.getElementById('progress-wrap').style.display = isSuccess ? 'none' : 'block';
     document.getElementById('modal-nav').style.display = isSuccess ? 'none' : 'flex';
     document.getElementById('step-success').classList.toggle('active', isSuccess);
-
     for (var i = 0; i < totalSteps; i++) {
       document.getElementById('step-' + i).classList.toggle('active', i === currentStep && !isSuccess);
       var pip = document.getElementById('pip-' + i);
@@ -893,14 +881,12 @@
       var lbl = document.getElementById('lbl-' + i);
       lbl.classList.toggle('active', i === currentStep && !isSuccess);
     }
-
     if (isSuccess) {
       document.getElementById('modal-eyebrow').textContent = 'Enquiry received';
       document.getElementById('modal-title').textContent = "You're on your way";
       buildSuccessSummary();
       return;
     }
-
     var titles = [
       { eyebrow:'Step 1 of 4', title:'Your contact details' },
       { eyebrow:'Step 2 of 4', title:'About your firm' },
@@ -957,9 +943,38 @@
     setTimeout(function() { btn.style.transform = ''; btn.style.transition = ''; }, 210);
   }
 
+  function sendEnquiryEmail() {
+    var goals = [];
+    document.querySelectorAll('#goal-chips .goal-chip.selected').forEach(function(c) { goals.push(c.textContent.trim()); });
+    var name = (document.getElementById('f-first').value + ' ' + document.getElementById('f-last').value).trim();
+    var data = {
+      _subject:          'New Enquiry: ' + name + ' (' + selectedPackage + ' Package)',
+      name:              name,
+      email:             document.getElementById('f-email').value,
+      phone:             document.getElementById('f-phone').value    || 'Not provided',
+      linkedin:          document.getElementById('f-linkedin').value || 'Not provided',
+      firm:              document.getElementById('f-firm').value,
+      role:              document.getElementById('f-role').value,
+      sector:            document.getElementById('f-sector').value,
+      source:            document.getElementById('f-source').value   || 'Not provided',
+      goals:             goals.join(', ')                            || 'Not specified',
+      current_situation: document.getElementById('f-current').value  || 'Not provided',
+      notes:             document.getElementById('f-notes').value    || 'None',
+      package:           selectedPackage,
+      call_format:       document.getElementById('f-format').value   || 'Not specified',
+      best_time:         document.getElementById('f-time').value     || 'Not specified'
+    };
+    fetch('https://formspree.io/f/xqejzaee', {
+      method:  'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body:    JSON.stringify(data)
+    }).catch(function() {});
+  }
+
   function nextStep() {
     if (!validateStep()) { shake(); return; }
     currentStep++;
+    if (currentStep === totalSteps) sendEnquiryEmail();
     renderStep();
     document.getElementById('modal').scrollTop = 0;
   }
